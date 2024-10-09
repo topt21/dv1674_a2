@@ -17,9 +17,9 @@ for image in im1 im2 im3 im4; do
     echo "Running callgrind for $image..."
     valgrind --tool=callgrind --callgrind-out-file="output/callgrind_${image}.log" ./blur 15 "data/$image.ppm" "$temp_dir/blur_${image}.ppm"
 
-    # Callgrind
+    # Perf
     echo "Running perf for $image..."
-    perf record -g ./blur 15 "data/$image.ppm" "$temp_dir/blur_${image}.ppm"
+    perf record -g -o "output/perf_$image.data" ./blur 15 "data/$image.ppm" "$temp_dir/blur_${image}.ppm"
 
     # Clean
     rm "$temp_dir/blur_${image}.ppm"
